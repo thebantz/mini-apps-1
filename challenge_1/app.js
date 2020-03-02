@@ -1,37 +1,44 @@
 // identifying values so we can manipulate through dom
-// document.body.innerHTML = "";
 
-var grid = document.getElementsByClassName('grid');
-var row = document.getElementsByClassName('row');
-var cell = document.getElementsByClassName('cell');
+const grid = document.getElementsByClassName('grid');
+const row = document.getElementsByClassName('row');
+const cell = document.getElementsByClassName('cell');
 
-var results = [];
+let results = [];
 
-// loop through array to 
-// 1. Retrieve all array values
-// 2. Bind event listeners using DOM
+let playerTurn = ['x'];
 
-// the below binds a div click into a turn by changing innerHTML into a letter
-// document.getElementById('turn').onclick = function changeContent() {
-//   document.getElementById('turn').innerHTML = "x";
-// }
-
-// document.getElementById('turnAgain').onclick = function changeContent() {
-//   document.getElementById('turnAgain').innerHTML = "o";
-// }
-
-// next step is to create 
-
-// be able to ask for grid values and push into an array, periodically
+// Below tracks who plays next and alternates 'x' and 'o' inputs
 for (var i = 0; i < cell.length; i++) {
-  results.push(cell[i].innerHTML);
   cell[i].addEventListener('click', function (event) {
-    console.log(event.type + ' got fired');
+    console.log(event.type + ' has been fired');
+    if (playerTurn[playerTurn.length - 1] === 'x') {
+      playerTurn.push('o');
+    } else if (playerTurn[playerTurn.length - 1] === 'o') {
+      playerTurn.push('x');
+    }
+    console.log(cell[i].innerHTML);
   });
 }
 
-function changeText(id) {
-  id.innerHTML = "X";
+let changeText = function (id) {
+  // added the no-overwrite policy for each cell
+  if (!id.innerHTML) {
+    id.innerHTML = playerTurn[playerTurn.length - 1];
+  }
+}
+
+// Return values into an array of arrays (3x3)
+// console.log(row[0].childNodes[5].innerHTML);
+for (var j = 0; j < row.length; j++) {
+  var eachRow = [];
+  for (var k = 1; k < 6; k += 1) {
+    if (k % 2 === 0) {
+      continue;
+    }
+    eachRow.push(row[j].childNodes[k].innerHTML);
+  }
+  results.push(eachRow);
 }
 
 console.log(results);
