@@ -12,7 +12,7 @@ let playerTurn = ['x'];
 // Below tracks who plays next and alternates 'x' and 'o' inputs
 for (var i = 0; i < cell.length; i++) {
   cell[i].addEventListener('click', function (event) {
-    console.log(event.type + ' has been fired');
+    // console.log(event.type + ' has been fired');
     if (playerTurn[playerTurn.length - 1] === 'x') {
       playerTurn.push('o');
     } else if (playerTurn[playerTurn.length - 1] === 'o') {
@@ -40,19 +40,11 @@ for (var j = 0; j < row.length; j++) {
       moves++;
       console.log('moves: ', moves)
       if (moves > 2) {
-        transformToGrid();
-        console.log('check for winner');
+        checkForWinner();
       };
     });
-    // eachRow.push(row[j].childNodes[k].innerText); // DOES NOT WORK
-    // console.log('what is this? ', row[j].childNodes[k]);
-    // Leaving this to work on checkForWinner
-    // WAS Hoping to circle back to transform grid into an 3x3 array of arrays
   }
-  // results.push(eachRow); // DOES NOT WORK
 }
-
-// console.log(results);
 
 // create a helper function that maps each innerHTML of the grid into array of arrays
 let transformToGrid = function () {
@@ -66,6 +58,29 @@ let transformToGrid = function () {
     }
     results.push(eachRow);
   }
-  console.log(results);
+  let grid = results.slice(results.length - 3);
+  return grid;
 }
 // create a helper function that checks for winner and invokes helper function above
+let checkForWinner = function () {
+  let grid = transformToGrid();
+  console.log('from checkForWinner: ', transformToGrid());
+  // Declare winning combos - Laterals (Horizontal)
+  // check one case ("x", "x", "x") @ first tile row
+  // for (var i = 0; i < grid[0].length; i++) {
+  //   let lateralWinX = move => move = 'x';
+  //   if (grid[0][i] === "x") {
+
+  //     console.log('x won the round!');
+  //   }
+  // }
+
+  let firstRowArr = grid[0];
+  let lateralWinX = move => move === 'x';
+  firstRowArr.every(lateralWinX);
+  console.log('grid[0]: ', firstRowArr);
+  console.log('does the first row win? ', firstRowArr.every(lateralWinX));
+
+
+  // Declare winning combos - Laterals (Vertical)
+}
