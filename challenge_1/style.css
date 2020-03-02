@@ -1,0 +1,26 @@
+.grid {
+  display: table;
+  border-spacing: 5px;
+  /* border-style: dotted dashed solid double */
+}
+
+.row {
+  display: table-row
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background: darksalmon;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle
+}
+
+.row div:first-child {
+  background: cadetblue
+}
+
+.row div:last-child {
+  background: red
+}
