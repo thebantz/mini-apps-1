@@ -9,7 +9,13 @@
 </head>
 
 <body>
-  <div id='app'>JSON to CSV File Converter</div>
+  <!-- <div id='app'>JSON to CSV File Converter</div> -->
+  <div>Convert your JSON to CSV:
+    <form action="/rhino" method="POST">
+      <textarea name="jsondata"></textarea>
+      <input type="submit" />
+    </form>
+  </div>
   <script src="bundle.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
