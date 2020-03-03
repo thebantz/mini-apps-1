@@ -94,7 +94,7 @@ let checkForWinner = function () {
   // Declare winning combos - Diagonal (Top Left to Bottom Right)
   let diagonalWin = () => {
     for (var i = 0; i < grid.length; i++) {
-      if (grid[i][i] === 'x' || grid[i][2 - i]) {
+      if (grid[i][i] === 'x' || grid[i][2 - i] === 'x') {
         xD++
       }
     }
@@ -103,7 +103,7 @@ let checkForWinner = function () {
     }
 
     for (var i = 0; i < grid.length; i++) {
-      if (grid[i][i] === 'o' || grid[i][2 - i]) {
+      if (grid[i][i] === 'o' || grid[i][2 - i] === 'o') {
         oD++
       }
     }
