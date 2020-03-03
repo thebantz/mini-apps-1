@@ -63,28 +63,23 @@ let checkForWinner = function () {
   let Xwins = move => move === 'x';
   let Owins = move => move === 'o';
   console.log('from checkForWinner: ', transformToGrid());
+
   // Declare winning combos - Laterals (Horizontal)
   for (var i = 0; i < grid.length; i++) {
-    let horizontalWinX = move => move === 'x';
-    let horizontalWinO = move => move === 'o';
-    if (grid[i].every(horizontalWinX)) {
+    if (grid[i].every(Xwins)) {
       console.log('x wins!');
-    } else if (grid[i].every(horizontalWinO)) {
+    } else if (grid[i].every(Owins)) {
       console.log('o wins!');
     }
   }
 
-  // firstRowArr.every(lateralWinX);
-  // console.log('grid[0]: ', firstRowArr);
-  // console.log('does the first row win? ', firstRowArr.every(lateralWinX));
-
   // Declare winning combos - Laterals (Vertical)
-  for (var j = 0; j < grid.length; j++) {
-    if (grid[j][0] === 'x') {
-      console.log('x might win');
-    }
+  let col1 = grid.map((col) => col[0]);
+  let col2 = grid.map((col) => col[1]);
+  let col3 = grid.map((col) => col[2]);
+  if (col1.every(Xwins) || col2.every(Xwins) || col3.every(Xwins)) {
+    console.log('x wins!');
+  } else if (col1.every(Owins) || col2.every(Owins) || col3.every(Owins)) {
+    console.log('o wins!');
   }
-
-  ///////////////// SCRATCH
-
 };
