@@ -1,6 +1,6 @@
 // identifying values so we can manipulate through dom
 
-const grid = document.getElementsByClassName('grid');
+const threeby3 = document.getElementsByClassName('grid');
 const row = document.getElementsByClassName('row');
 const cell = document.getElementsByClassName('cell');
 
@@ -62,24 +62,56 @@ let checkForWinner = function () {
   let grid = transformToGrid();
   let Xwins = move => move === 'x';
   let Owins = move => move === 'o';
+  let xD = 0;
+  let oD = 0;
   console.log('from checkForWinner: ', transformToGrid());
 
   // Declare winning combos - Laterals (Horizontal)
-  for (var i = 0; i < grid.length; i++) {
-    if (grid[i].every(Xwins)) {
-      console.log('x wins!');
-    } else if (grid[i].every(Owins)) {
-      console.log('o wins!');
+  let horizontalWin = () => {
+    for (var i = 0; i < grid.length; i++) {
+      if (grid[i].every(Xwins)) {
+        console.log('x wins by rows!');
+      } else if (grid[i].every(Owins)) {
+        console.log('o wins by rows!');
+      }
     }
   }
 
+
   // Declare winning combos - Laterals (Vertical)
-  let col1 = grid.map((col) => col[0]);
-  let col2 = grid.map((col) => col[1]);
-  let col3 = grid.map((col) => col[2]);
-  if (col1.every(Xwins) || col2.every(Xwins) || col3.every(Xwins)) {
-    console.log('x wins!');
-  } else if (col1.every(Owins) || col2.every(Owins) || col3.every(Owins)) {
-    console.log('o wins!');
+  let verticalWin = () => {
+    let col1 = grid.map((col) => col[0]);
+    let col2 = grid.map((col) => col[1]);
+    let col3 = grid.map((col) => col[2]);
+    if (col1.every(Xwins) || col2.every(Xwins) || col3.every(Xwins)) {
+      console.log('x wins by columns!');
+    } else if (col1.every(Owins) || col2.every(Owins) || col3.every(Owins)) {
+      console.log('o wins by columns!');
+    }
   }
+
+
+  // Declare winning combos - Diagonal (Top Left to Bottom Right)
+  let diagonalWin = () => {
+    for (var i = 0; i < grid.length; i++) {
+      if (grid[i][i] === 'x' || grid[i][2 - i]) {
+        xD++
+      }
+    }
+    if (xD === 3) {
+      console.log('X won diagonally!');
+    }
+
+    for (var i = 0; i < grid.length; i++) {
+      if (grid[i][i] === 'o' || grid[i][2 - i]) {
+        oD++
+      }
+    }
+    if (oD === 3) {
+      console.log('O won diagonally!');
+    }
+  }
+  verticalWin();
+  horizontalWin();
+  diagonalWin();
 };
