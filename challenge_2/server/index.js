@@ -17,26 +17,27 @@ const output = []; // holds all rows of data
 
 app.get('/', (req, res) => res.sendFile(indexFile));
 app.post('/rhino', (req, res) => {
-  res.redirect('/');
+
   console.log('json', req.body.jsondata);
 
+  let flatArr = [];
   let checkForChild = (jsonObj) => {
-    let flatArr = [];
+    let one = {};
     for (var key in jsonObj) {
-      let one = {};
       if (Array.isArray(jsonObj[key])) {
         checkForChild(jsonObj[key]);
       } else {
-        one[key] = one[jsonObj[key]];
-        flatArr.push(one);
+        one[key] = jsonObj[key];
       }
     }
+    flatArr.push(one);
     return flatArr;
   }
 
-  // let data = checkForChild(req.body.jsondata);
+  // console.log(JSON.parse(req.body.jsondata));
+  let data = checkForChild(JSON.parse(req.body.jsondata));
 
-  // console.log('JSON data received', data);
+  console.log('JSON data received', data);
 
   data.forEach((d) => {
     const row = [];
@@ -47,6 +48,7 @@ app.post('/rhino', (req, res) => {
   });
 
   fs.writeFileSync(filename, output.join(os.EOL));
+  res.redirect('/');
 });
 
 
